@@ -1,0 +1,404 @@
+using System;
+using System.Collections.Generic;
+
+
+namespace učím_se_programming
+{
+    public class Promenne
+    {
+        public double r;
+        public double v;
+        public double a;
+        public double b;
+        public double c;
+        public double p;
+        public double obvod;
+        public double obsah;
+        public double obsahpodstavy;
+        public double obsahplaste;
+        public double objem;
+    }
+    public class Program
+    {
+
+        public static void Main(string[] args)
+        {
+
+
+            /////dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true -p:PublishTrimmed=true 
+            Console.Title = "Tělesa";
+            Console.WriteLine("Chcete zapnout Light mode?  Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Clear();
+                Console.WriteLine("Volba uložena");
+            }
+            else
+            {
+                Console.WriteLine("Volba uložena");
+            }
+
+        start1:
+            Console.WriteLine("\n\nZadejte příkaz");
+            Console.WriteLine("Příkazy na výběr: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("kruh; obdelnik; ctverec; trojuhelnik; koule; kvadr; krychle; valec\n");
+            string prikaz = (Console.ReadLine());
+            Console.ForegroundColor = ConsoleColor.Black;
+            switch (prikaz.ToLower().Trim().RemoveDiacritics())
+            {
+                case "kruh":
+                    goto Kruh;
+                case "obdelnik":
+                    goto Obdelnik;
+                case "ctverec":
+                    goto Ctverec;
+                case "trojuhelnik":
+                    goto Trojuhelnik;
+                case "koule":
+                    goto Koule;
+                case "kvadr":
+                    goto Kvádr;
+                case "krychle":
+                    goto Krychle;
+                case "valec":
+                    goto Válec;
+                default:
+                    goto start1;
+            }
+
+
+        //Kruh
+        Kruh:
+            Promenne kruh = new Promenne();
+            Console.WriteLine("Zadej poloměr kruhu (v cm)");
+            kruh.r = double.Parse(Console.ReadLine());
+            kruh.obvod = 3.1415 * 2 * kruh.r;
+            kruh.obvod = Math.Round(kruh.obvod, 3);
+            Console.WriteLine("Obvod je " + kruh.obvod + " cm");
+
+            kruh.obsah = 3.1415 * kruh.r * kruh.r;
+            kruh.obsah = Math.Round(kruh.obsah, 3);
+            Console.WriteLine("Obsah je " + kruh.obsah + " cm2");
+            goto start1;
+
+        //Obdelník
+        Obdelnik:
+            Promenne obdelnik = new Promenne();
+            Console.WriteLine("Zadejte stranu a");
+            obdelnik.a = double.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte stranu b");
+            obdelnik.b = double.Parse(Console.ReadLine());
+            obdelnik.obvod = 2 * obdelnik.a + 2 * obdelnik.b;
+            obdelnik.obsah = obdelnik.a * obdelnik.b;
+            Console.WriteLine("Obvod je " + obdelnik.obvod + " cm");
+            Console.WriteLine("Obsah je " + obdelnik.obsah + " cm2");
+            goto start1;
+
+        //Čtverec
+        Ctverec:
+            Promenne ctverec = new Promenne();
+            Console.WriteLine("Zadejte stranu a");
+            ctverec.a = double.Parse(Console.ReadLine()); ;
+            ctverec.obvod = 4 * ctverec.a;
+            ctverec.obsah = ctverec.a * ctverec.a;
+            Console.WriteLine("Obvod je " + ctverec.obvod + " cm");
+            Console.WriteLine("Obsah je " + ctverec.obsah + " cm2");
+            goto start1;
+
+        //Trojuhelnik
+        Trojuhelnik:
+            Promenne trojuh = new Promenne();
+            Console.WriteLine("Zadejte stranu a");
+            trojuh.a = double.Parse(Console.ReadLine()); ;
+            Console.WriteLine("Zadejte stranu b");
+            trojuh.b = double.Parse(Console.ReadLine()); ;
+            Console.WriteLine("Zadejte stranu c");
+            trojuh.c = double.Parse(Console.ReadLine()); ;
+            trojuh.obvod = trojuh.a + trojuh.b + trojuh.c;
+
+
+            trojuh.p = (trojuh.a + trojuh.b + trojuh.c) / 2;
+            double mezi = Math.Sqrt(trojuh.p * (trojuh.p - trojuh.a) * (trojuh.p - trojuh.b) * (trojuh.p - trojuh.c));
+            trojuh.v = (2 / trojuh.a) * mezi;
+            trojuh.v = Math.Round(trojuh.v, 3);
+
+
+            if (trojuh.a > trojuh.b && trojuh.a > trojuh.c)
+            {
+                trojuh.obsah = (trojuh.v * trojuh.a) / 2;
+                Console.WriteLine("Přepona je " + trojuh.a + "(a)");
+                double veta = (trojuh.b * trojuh.b) + (trojuh.c * trojuh.c);
+                if (veta == trojuh.a * trojuh.a)
+                {
+                    Console.WriteLine("Trojúhelník je pravoúhlý");
+                }
+                else
+                {
+                    Console.WriteLine("Trojúhelník není pravoúhlý");
+                }
+            }
+            if (trojuh.b > trojuh.a && trojuh.b > trojuh.c)
+            {
+
+                trojuh.obsah = (trojuh.v * trojuh.a) / 2;
+                Console.WriteLine("Přepona je " + trojuh.b + "(b)");
+                double veta = trojuh.a * trojuh.a + trojuh.c * trojuh.c;
+                if (veta == trojuh.b * trojuh.b)
+                {
+                    Console.WriteLine("Trojúhelník je pravoúhlý");
+                }
+                else
+                {
+                    Console.WriteLine("Trojúhelník není pravoúhlý");
+                }
+
+            }
+            if (trojuh.c > trojuh.b && trojuh.c > trojuh.a)
+            {
+                double obsah1 = trojuh.v * trojuh.a;
+                trojuh.obsah = obsah1 / 2;
+                Console.WriteLine("Přepona je " + trojuh.c + "(c)");
+                double veta = trojuh.b * trojuh.b + trojuh.a * trojuh.a;
+                if (veta == trojuh.c * trojuh.c)
+                {
+                    Console.WriteLine("Trojúhelník je pravoúhlý");
+                }
+                else
+                {
+                    Console.WriteLine("Trojúhelník není pravoúhlý");
+                }
+            }
+            else
+            {
+                trojuh.obsah = (trojuh.v * trojuh.a) / 2;
+                Console.WriteLine("Trojúhelník je rovnoběžný");
+            }
+
+            double vk = trojuh.obsah / trojuh.p;
+            double nasobek = trojuh.a * trojuh.b * trojuh.c;
+            double nas2 = 4 * trojuh.p * vk;
+            double ok = nasobek / nas2;
+
+            Console.WriteLine("Obvod je " + trojuh.obvod + " cm");
+            Console.WriteLine("Obsah je " + trojuh.obsah + " cm2");
+            Console.WriteLine("Výška od přepony je " + trojuh.v + " cm\nPoloměr kružnice vepsané je " + vk + " cm");
+            Console.WriteLine("Poloměr opsané kružnice je " + ok + "cm");
+            goto start1;
+
+
+        //Koule
+        Koule:
+            Promenne koule = new Promenne();
+            Console.WriteLine("Zadejte poloměr kruhu");
+            koule.r = double.Parse(Console.ReadLine());
+            koule.obvod = 2 * 3.1415 * koule.r;
+            koule.obsah = 4 * koule.r * koule.r * 3.1415;
+            double mezi1 = koule.r * koule.r * koule.r;
+            koule.objem = 1.3333 * 3.1415 * mezi1;
+            Math.Round(koule.obsah, 3);
+            Math.Round(koule.objem, 3);
+            Console.WriteLine("Obvod je " + koule.obvod + "cm");
+            Console.WriteLine("Plocha je " + koule.obsah + "cm2");
+            Console.WriteLine("Objem je " + koule.objem + "cm3");
+            goto start1;
+
+        //Válec
+        Válec:
+            Promenne válec = new Promenne();
+            Console.WriteLine("Zadejte poloměr podstavy (v cm)");
+            válec.r = double.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte výšku (v cm)");
+            válec.v = double.Parse(Console.ReadLine());
+            válec.obvod = 3.1415 * 2 * válec.r;
+            válec.obvod = Math.Round(válec.obvod, 3);
+            válec.obsahpodstavy = 3.1415 * válec.r * válec.r;
+            válec.obsahpodstavy = Math.Round(válec.obsahpodstavy, 3);
+            double plastvalce = 2 * 3.1415 * válec.r * válec.v;
+            plastvalce = Math.Round(plastvalce, 3);
+            double celek = 2 * válec.obsahpodstavy + plastvalce;
+            celek = Math.Round(celek, 3);
+            válec.objem = 3.1415 * válec.r * válec.r * válec.v;
+            válec.objem = Math.Round(plastvalce, 3);
+            Console.WriteLine("Obvod podstavy je " + válec.obvod + "cm");
+            Console.WriteLine("Plocha podstavy je " + válec.obsahpodstavy + "cm2");
+            Console.WriteLine("Plocha pláště je " + plastvalce + "cm2");
+            Console.WriteLine("Celková plocha je " + celek + "cm2");
+            Console.WriteLine("Objem je " + válec.objem + "cm3");
+            goto start1;
+
+        //Kvádr
+        Kvádr:
+            Promenne kvadr = new Promenne();
+            Console.WriteLine("Zadejte stranu a");
+            kvadr.a = double.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte stranu b");
+            kvadr.b = double.Parse(Console.ReadLine());
+            Console.WriteLine("Zadejte stranu c");
+            kvadr.c = double.Parse(Console.ReadLine());
+            kvadr.obvod = 4 * (kvadr.a + kvadr.b + kvadr.c);
+            kvadr.obsah = 2 * (kvadr.a * kvadr.b + kvadr.b * kvadr.c + kvadr.c * kvadr.a);
+            kvadr.objem = kvadr.a * kvadr.b * kvadr.c;
+            Console.WriteLine("Obvod hran je " + kvadr.obvod + " cm");
+            Console.WriteLine("Plocha je " + kvadr.obsah + " cm2");
+            Console.WriteLine("Objem je " + kvadr.objem + " cm3");
+            goto start1;
+
+        //Krychle
+        Krychle:
+            Promenne krychle = new Promenne();
+            Console.WriteLine("Zadejte stranu a");
+            krychle.a = double.Parse(Console.ReadLine()); ;
+            krychle.obvod = 12 * krychle.a;
+            krychle.obsah = 6 * krychle.a * krychle.a;
+            krychle.objem = krychle.a * krychle.a * krychle.a;
+            Console.WriteLine("Obvod je " + krychle.obvod + " cm");
+            Console.WriteLine("Plocha je " + krychle.obsah + " cm2");
+            Console.WriteLine("Objem je " + krychle.objem + " cm3");
+            goto start1;
+
+        }
+
+
+
+    }
+    public static class Strings
+    {
+        static Dictionary<string, string> foreign_characters = new Dictionary<string, string>
+    {
+        { "äæǽ", "ae" },
+        { "öœ", "oe" },
+        { "ü", "ue" },
+        { "Ä", "Ae" },
+        { "Ü", "Ue" },
+        { "Ö", "Oe" },
+        { "ÀÁÂÃÄÅǺĀĂĄǍΑΆẢẠẦẪẨẬẰẮẴẲẶА", "A" },
+        { "àáâãåǻāăąǎªαάảạầấẫẩậằắẵẳặа", "a" },
+        { "Б", "B" },
+        { "б", "b" },
+        { "ÇĆĈĊČ", "C" },
+        { "çćĉċč", "c" },
+        { "Д", "D" },
+        { "д", "d" },
+        { "ÐĎĐΔ", "Dj" },
+        { "ðďđδ", "dj" },
+        { "ÈÉÊËĒĔĖĘĚΕΈẼẺẸỀẾỄỂỆЕЭ", "E" },
+        { "èéêëēĕėęěέεẽẻẹềếễểệеэ", "e" },
+        { "Ф", "F" },
+        { "ф", "f" },
+        { "ĜĞĠĢΓГҐ", "G" },
+        { "ĝğġģγгґ", "g" },
+        { "ĤĦ", "H" },
+        { "ĥħ", "h" },
+        { "ÌÍÎÏĨĪĬǏĮİΗΉΊΙΪỈỊИЫ", "I" },
+        { "ìíîïĩīĭǐįıηήίιϊỉịиыї", "i" },
+        { "Ĵ", "J" },
+        { "ĵ", "j" },
+        { "ĶΚК", "K" },
+        { "ķκк", "k" },
+        { "ĹĻĽĿŁΛЛ", "L" },
+        { "ĺļľŀłλл", "l" },
+        { "М", "M" },
+        { "м", "m" },
+        { "ÑŃŅŇΝН", "N" },
+        { "ñńņňŉνн", "n" },
+        { "ÒÓÔÕŌŎǑŐƠØǾΟΌΩΏỎỌỒỐỖỔỘỜỚỠỞỢО", "O" },
+        { "òóôõōŏǒőơøǿºοόωώỏọồốỗổộờớỡởợо", "o" },
+        { "П", "P" },
+        { "п", "p" },
+        { "ŔŖŘΡР", "R" },
+        { "ŕŗřρр", "r" },
+        { "ŚŜŞȘŠΣС", "S" },
+        { "śŝşșšſσςс", "s" },
+        { "ȚŢŤŦτТ", "T" },
+        { "țţťŧт", "t" },
+        { "ÙÚÛŨŪŬŮŰŲƯǓǕǗǙǛŨỦỤỪỨỮỬỰУ", "U" },
+        { "ùúûũūŭůűųưǔǖǘǚǜυύϋủụừứữửựу", "u" },
+        { "ÝŸŶΥΎΫỲỸỶỴЙ", "Y" },
+        { "ýÿŷỳỹỷỵй", "y" },
+        { "В", "V" },
+        { "в", "v" },
+        { "Ŵ", "W" },
+        { "ŵ", "w" },
+        { "ŹŻŽΖЗ", "Z" },
+        { "źżžζз", "z" },
+        { "ÆǼ", "AE" },
+        { "ß", "ss" },
+        { "Ĳ", "IJ" },
+        { "ĳ", "ij" },
+        { "Œ", "OE" },
+        { "ƒ", "f" },
+        { "ξ", "ks" },
+        { "π", "p" },
+        { "β", "v" },
+        { "μ", "m" },
+        { "ψ", "ps" },
+        { "Ё", "Yo" },
+        { "ё", "yo" },
+        { "Є", "Ye" },
+        { "є", "ye" },
+        { "Ї", "Yi" },
+        { "Ж", "Zh" },
+        { "ж", "zh" },
+        { "Х", "Kh" },
+        { "х", "kh" },
+        { "Ц", "Ts" },
+        { "ц", "ts" },
+        { "Ч", "Ch" },
+        { "ч", "ch" },
+        { "Ш", "Sh" },
+        { "ш", "sh" },
+        { "Щ", "Shch" },
+        { "щ", "shch" },
+        { "ЪъЬь", "" },
+        { "Ю", "Yu" },
+        { "ю", "yu" },
+        { "Я", "Ya" },
+        { "я", "ya" },
+    };
+
+        public static char RemoveDiacritics(this char c)
+        {
+            foreach (KeyValuePair<string, string> entry in foreign_characters)
+            {
+                if (entry.Key.IndexOf(c) != -1)
+                {
+                    return entry.Value[0];
+                }
+            }
+            return c;
+        }
+
+        public static string RemoveDiacritics(this string s)
+        {
+            //StringBuilder sb = new StringBuilder ();
+            string text = "";
+
+
+            foreach (char c in s)
+            {
+                int len = text.Length;
+
+                foreach (KeyValuePair<string, string> entry in foreign_characters)
+                {
+                    if (entry.Key.IndexOf(c) != -1)
+                    {
+                        text += entry.Value;
+                        break;
+                    }
+                }
+
+                if (len == text.Length)
+                {
+                    text += c;
+                }
+            }
+            return text;
+        }
+    }
+}
+
+
+
